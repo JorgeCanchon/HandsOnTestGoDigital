@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/movieapi",
+      "launchUrl": "movie",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "HandsOnTestGoDigital": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/movieapi",
+      "launchUrl": "movie",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
