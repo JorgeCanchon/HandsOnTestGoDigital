@@ -18,9 +18,9 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
         {
             try
             {
-                var movie = _repositoryWrapper.Movie.FindByCondition(x => x.Equals("")).ToList();
+                var movie = _repositoryWrapper.Movie.GetBestMovies();
 
-                return movie.Any() ?
+                return movie != null && movie.Results.Any() ?
                     new Response() { Status = 200, Message = "Ok", Payload = movie } :
                     new Response() { Status = 204, Message = "No content", Payload = null };
             }
@@ -34,9 +34,9 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
         {
             try
             {
-                var movie = _repositoryWrapper.Movie.FindByCondition(x => x.Equals("")).ToList();
+                var movie = _repositoryWrapper.Movie.GetLastMovies();
 
-                return movie.Any() ?
+                return movie != null ?
                     new Response() { Status = 200, Message = "Ok", Payload = movie } :
                     new Response() { Status = 204, Message = "No content", Payload = null };
             }
@@ -46,13 +46,13 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
             }
         }
 
-        public Response GetMovieByDetail()
+        public Response GetMovieByDetail(int idMovie)
         {
             try
             {
-                var movie = _repositoryWrapper.Movie.FindByCondition(x => x.Equals("")).ToList();
+                var movie = _repositoryWrapper.Movie.GetMovieByDetail(idMovie);
 
-                return movie.Any() ?
+                return movie != null ?
                     new Response() { Status = 200, Message = "Ok", Payload = movie } :
                     new Response() { Status = 204, Message = "No content", Payload = null };
             }
@@ -66,9 +66,9 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
         {
             try
             {
-                var movie = _repositoryWrapper.Movie.FindByCondition(x => x.Equals(name)).ToList();
+                var movie = _repositoryWrapper.Movie.GetMoviesByName(name);
 
-                return movie.Any() ?
+                return movie != null && movie.Results.Any() ?
                     new Response() { Status = 200, Message = "Ok", Payload = movie } :
                     new Response() { Status = 204, Message = "No content", Payload = null };
             }
@@ -82,9 +82,9 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
         {
             try
             {
-                var movie = _repositoryWrapper.Movie.FindByCondition(x => x.Equals("")).ToList();
+                var movie = _repositoryWrapper.Movie.GetTopMovies();
 
-                return movie.Any() ?
+                return movie != null && movie.Results.Any() ?
                     new Response() { Status = 200, Message = "Ok", Payload = movie } :
                     new Response() { Status = 204, Message = "No content", Payload = null };
             }

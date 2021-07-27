@@ -8,6 +8,6 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
         public Response GetBestMovies();
         public Response GetTopMovies();
         public Response GetMoviesByName(string name);
-        public Response GetMovieByDetail();
+        public Response GetMovieByDetail(int idMovie);
     }
 }

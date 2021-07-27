@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using HandsOnTestGoDigital.Core.Interfaces.Repositories;
+using HandsOnTestGoDigital.Infraestructure.Data.APIMovie;
 
 namespace HandsOnTestGoDigital.Infraestructure
 {
@@ -7,7 +8,7 @@ namespace HandsOnTestGoDigital.Infraestructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<IRepositoryWrapper>().As<IRepositoryWrapper>().InstancePerLifetimeScope();
+            builder.RegisterType<RepositoryWrapper>().As<IRepositoryWrapper>().InstancePerLifetimeScope();
         }
     }
 }

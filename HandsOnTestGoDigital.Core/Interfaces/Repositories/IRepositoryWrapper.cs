@@ -3,6 +3,5 @@
     public interface IRepositoryWrapper
     {
         IMovieRepository Movie { get; }
-        void Save();
     }
 }
