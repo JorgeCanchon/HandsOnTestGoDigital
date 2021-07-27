@@ -31,7 +31,7 @@ namespace HandsOnTestGoDigital
 
             services.ConfigureRepositoryWrapper();
 
-            services.AddMvc(c => c.EnableEndpointRouting = false);
+            services.AddMvc();
 
             CultureInfo.CurrentCulture = new CultureInfo("es-ES");
 
@@ -55,16 +55,6 @@ namespace HandsOnTestGoDigital
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
 
             app.UseHttpsRedirection();
 
@@ -76,10 +66,6 @@ namespace HandsOnTestGoDigital
             {
                 endpoints.MapControllers();
             });
-
-            app.UseStaticFiles();
-
-
         }
     }
 }
