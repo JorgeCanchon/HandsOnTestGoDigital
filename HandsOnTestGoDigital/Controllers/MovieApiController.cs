@@ -1,11 +1,13 @@
 ﻿using HandsOnTestGoDigital.Common;
 using HandsOnTestGoDigital.Core.Entities;
 using HandsOnTestGoDigital.Core.UseCases.Movies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace HandsOnTestGoDigital.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MovieApiController : ApiController

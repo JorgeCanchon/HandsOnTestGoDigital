@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Net.Http;
 
 namespace HandsOnTestGoDigital.Infraestructure
 {
     public class RequestMovie<T> where T : class
     {
-        private const string APIKEY = "";
+        private const string APIKEY = "848fcb8e4c9b8d8a0e51fcc8b37a4540";
         private const string URL = "https://api.themoviedb.org/3/";
 
         public T HttpGet(string requestName, string parameters = "")

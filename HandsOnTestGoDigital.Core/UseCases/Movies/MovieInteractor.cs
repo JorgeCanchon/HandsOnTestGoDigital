@@ -1,5 +1,6 @@
 ﻿using HandsOnTestGoDigital.Core.Entities;
 using HandsOnTestGoDigital.Core.Interfaces.Repositories;
+using HandsOnTestGoDigital.Core.Models;
 using System;
 using System.Linq;
 
@@ -14,79 +15,33 @@ namespace HandsOnTestGoDigital.Core.UseCases.Movies
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));
         }
 
-        public Response GetBestMovies()
+        public Response GetBestMovies() =>
+            GetResponseMovies(_repositoryWrapper.Movie.GetBestMovies());
+
+        public Response GetLastMovies() =>
+            GetResponseMovie(_repositoryWrapper.Movie.GetLastMovies());
+
+        public Response GetMovieByDetail(int idMovie) =>
+            GetResponseMovie(_repositoryWrapper.Movie.GetMovieByDetail(idMovie));
+
+        public Response GetMoviesByName(string name) =>
+            GetResponseMovies(_repositoryWrapper.Movie.GetMoviesByName(name));
+
+        public Response GetTopMovies() => 
+            GetResponseMovies(_repositoryWrapper.Movie.GetTopMovies());
+
+        public Response GetResponseMovies(MovieResponse payload) =>
+            GetStatus(() => payload != null && payload.Results.Any() != null, payload);
+
+        public Response GetResponseMovie(Movie payload) =>
+            GetStatus(() => payload != null, payload);
+
+        public Response GetStatus(Func<bool> condition, object payload = null)
         {
             try
             {
-                var movie = _repositoryWrapper.Movie.GetBestMovies();
-
-                return movie != null && movie.Results.Any() ?
-                    new Response() { Status = 200, Message = "Ok", Payload = movie } :
-                    new Response() { Status = 204, Message = "No content", Payload = null };
-            }
-            catch (Exception e)
-            {
-                return new Response() { Status = 500, Message = e.Message, Payload = null };
-            }
-        }
-
-        public Response GetLastMovies()
-        {
-            try
-            {
-                var movie = _repositoryWrapper.Movie.GetLastMovies();
-
-                return movie != null ?
-                    new Response() { Status = 200, Message = "Ok", Payload = movie } :
-                    new Response() { Status = 204, Message = "No content", Payload = null };
-            }
-            catch (Exception e)
-            {
-                return new Response() { Status = 500, Message = e.Message, Payload = null };
-            }
-        }
-
-        public Response GetMovieByDetail(int idMovie)
-        {
-            try
-            {
-                var movie = _repositoryWrapper.Movie.GetMovieByDetail(idMovie);
-
-                return movie != null ?
-                    new Response() { Status = 200, Message = "Ok", Payload = movie } :
-                    new Response() { Status = 204, Message = "No content", Payload = null };
-            }
-            catch (Exception e)
-            {
-                return new Response() { Status = 500, Message = e.Message, Payload = null };
-            }
-        }
-
-        public Response GetMoviesByName(string name)
-        {
-            try
-            {
-                var movie = _repositoryWrapper.Movie.GetMoviesByName(name);
-
-                return movie != null && movie.Results.Any() ?
-                    new Response() { Status = 200, Message = "Ok", Payload = movie } :
-                    new Response() { Status = 204, Message = "No content", Payload = null };
-            }
-            catch (Exception e)
-            {
-                return new Response() { Status = 500, Message = e.Message, Payload = null };
-            }
-        }
-
-        public Response GetTopMovies()
-        {
-            try
-            {
-                var movie = _repositoryWrapper.Movie.GetTopMovies();
-
-                return movie != null && movie.Results.Any() ?
-                    new Response() { Status = 200, Message = "Ok", Payload = movie } :
-                    new Response() { Status = 204, Message = "No content", Payload = null };
+                return condition() ? new Response() { Status = 200, Message = "Ok", Payload = payload } :
+                new Response() { Status = 204, Message = "No content", Payload = null };
             }
             catch (Exception e)
             {
